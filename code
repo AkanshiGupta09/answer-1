@@ -1,0 +1,77 @@
+  #!/bin/bash
+
+# Display help/usage information
+function show_help() {
+    echo "Usage: internact1 [options]"
+    echo "Options:"
+    echo "  -a, --action <action>   Specify the action (e.g., start, stop, restart)"
+    echo "  -f, --file <file_path>  Specify a file path"
+    echo "  -h, --help              Display this help message"
+    echo "Version: v0.1.0"
+}
+
+# Main function for internact1 command
+function internact1() {
+    # Check if no arguments provided
+    if [ $# -eq 0 ]; then
+        echo "No arguments provided. Use '-h' or '--help' for usage information."
+        exit 1
+    fi
+
+    # Parse command-line options
+    while [[ $# -gt 0 ]]; do
+        key="$1"
+
+        case $key in
+            -a|--action)
+            action="$2"
+            shift
+            shift
+            ;;
+            -f|--file)
+            file="$2"
+            shift
+            shift
+            ;;
+            -h|--help)
+            show_help
+            exit 0
+            ;;
+            *)
+            echo "Invalid option: $key"
+            show_help
+            exit 1
+            ;;
+        esac
+    done
+
+    # Perform actions based on user input
+    case $action in
+        start)
+            echo "Starting the internact1 command"
+            # Add your logic for 'start' action here
+            ;;
+        stop)
+            echo "Stopping the internact1 command"
+            # Add your logic for 'stop' action here
+            ;;
+        restart)
+            echo "Restarting the internact1 command"
+            # Add your logic for 'restart' action here
+            ;;
+        *)
+            echo "Unknown action. Available actions: start, stop, restart"
+            show_help
+            exit 1
+            ;;
+    esac
+
+    # If a file path is provided, perform operations using the file
+    if [ -n "$file" ]; then
+        echo "File path provided: $file"
+        # Add operations using the file here
+    fi
+}
+
+# Execute the main internact1 function
+internact1 "$@"
